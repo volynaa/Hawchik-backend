@@ -69,7 +69,7 @@ exports.plugin = {
 					if(!affectedRows) return {err: options.answer[414]};
 					return {err:options.answer[200]}
 				},
-				description: 'Удалить товар в магазине',
+				description: 'Удалить заказ',
 				tags: ['api', 'courier', 'orders'],
 				auth: false,
 				validate: {
@@ -96,7 +96,7 @@ exports.plugin = {
 					await pool.query(`UPDATE orders SET id_courier =?, list =?, address =?, money =?, paid =?, type_payment =? WHERE id =?`, [id_courier, JSON.stringify(list), address,money,paid,type_payment,id]);
 					return {err:options.answer[200]}
 				},
-				description: 'Редактировать товар',
+				description: 'Редактировать заказ',
 				tags: ['api', 'courier', 'orders'],
 				validate: {
 					payload: Joi.object({
