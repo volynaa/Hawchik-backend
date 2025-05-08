@@ -7,6 +7,25 @@ exports.plugin = {
 		const pool = server.mysql.pool
 		server.route({
 			method: 'GET',
+			path: '/goods',
+			handler: async (req) => {
+				try {
+					const [rows] = await pool.query(`SELECT * FROM goods`)
+					if(rows.length) return {err: options.answer[200], data: rows}
+					else return {err: options.answer[414]}
+				} catch (err) {
+					console.log(err)
+					return {err: options.answer[504]}
+				}
+			},
+			options:{
+				description: 'Список товаров',
+				tags: ['api', 'goods'],
+				auth: false
+			}
+		});
+		server.route({
+			method: 'GET',
 			path: '/shops/{id_shops}/goods',
 			handler: async (req) => {
 				try {
